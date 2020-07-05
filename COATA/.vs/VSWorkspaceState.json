@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\BLL",
+    "\\Common\\bin",
+    "\\DAL",
+    "\\DAL\\Migrations",
+    "\\DAL\\Migrations\\StoreProcedures"
+  ],
+  "SelectedNode": "\\DAL\\Migrations\\StoreProcedures\\Resource1.resx",
+  "PreviewInSolutionExplorer": false
+}

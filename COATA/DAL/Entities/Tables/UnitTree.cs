@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DAL.Entities.Tables
 {
@@ -7,7 +9,7 @@ namespace DAL.Entities.Tables
         public int Id { get; set; }
         public string Name { get; set; }
         public int? ParentId { get; set; }
-        [AllowNull] public UnitTree Parent {get; set;}
+        public UnitTree Parent {get; set;}
         public int UnitClassificationId {get; set;}
         public UnitClassification UnitClassification {get; set;}
         public int Lft { get; set; }

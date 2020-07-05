@@ -33,6 +33,16 @@
   },
   "frameworks": {
     "netcoreapp3.1": {
+      "dependencies": {
+        "Newtonsoft.Json": {
+          "target": "Package",
+          "version": "[12.0.3, )"
+        },
+        "Swashbuckle.AspNetCore.Newtonsoft": {
+          "target": "Package",
+          "version": "[5.5.1, )"
+        }
+      },
       "imports": [
         "net461",
         "net462",

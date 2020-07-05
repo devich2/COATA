@@ -5,13 +5,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Abstract" />
-      <Folder Include="Impl" />
+      <ProjectReference Include="..\Common\Common.csproj" />
+      <ProjectReference Include="..\DAL\DAL.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Common\Common.csproj" />
-      <ProjectReference Include="..\DAL\DAL.csproj" />
+      <PackageReference Include="AutoMapper" Version="10.0.0" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     </ItemGroup>
 
 </Project>
