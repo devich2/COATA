@@ -9,14 +9,14 @@ namespace DAL.Configurations
         public void Configure(EntityTypeBuilder<UnitTypeParentShip> builder)
         {
             builder.HasKey(x => new {x.UnitTypeId, x.ParentUnitTypeId});
-            builder.Property(x => x.UnitType).HasColumnName("UnitType");
-            builder.Property(x => x.ParentUnitTypeId).HasColumnName("ParentUnitTypeId");
             builder.HasOne(x => x.UnitType)
-                .WithOne()
-                .HasForeignKey<UnitTypeParentShip>(x => x.UnitTypeId);
+                .WithMany()
+                .HasForeignKey(x => x.UnitTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.ParentUnitType)
-                .WithOne()
-                .HasForeignKey<UnitTypeParentShip>(x => x.ParentUnitTypeId);
+                .WithMany()
+                .HasForeignKey(x => x.ParentUnitTypeId)
+                .OnDelete(DeleteBehavior.NoAction);;
         }
     }
 }

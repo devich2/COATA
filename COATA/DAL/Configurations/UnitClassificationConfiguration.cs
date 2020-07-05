@@ -9,10 +9,6 @@ namespace DAL.Configurations
         public void Configure(EntityTypeBuilder<UnitClassification> builder)
         {
             builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.Name).HasColumnName("Name");
-            builder.Property(x => x.UnitTypeId).HasColumnName("UnitTypeId");
-            builder.HasOne(x => x.UnitType).WithOne().HasForeignKey<UnitClassification>(x => x.UnitTypeId);
         }
     }
 }

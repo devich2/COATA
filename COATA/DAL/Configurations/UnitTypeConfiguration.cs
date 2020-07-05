@@ -9,7 +9,6 @@ namespace DAL.Configurations
         public void Configure(EntityTypeBuilder<UnitType> builder)
         {
             builder.HasKey(x=>x.Id);
-            builder.Property(x=>x.Name).HasColumnName("Name");
         }
     }
 }

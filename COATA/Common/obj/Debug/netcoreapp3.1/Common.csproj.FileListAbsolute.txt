@@ -1,0 +1,12 @@
+C:\Users\Devid\Desktop\COATA\COATA\Common\bin\Debug\netcoreapp3.1\Common.deps.json
+C:\Users\Devid\Desktop\COATA\COATA\Common\bin\Debug\netcoreapp3.1\Common.dll
+C:\Users\Devid\Desktop\COATA\COATA\Common\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\Devid\Desktop\COATA\COATA\Common\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Devid\Desktop\COATA\COATA\Common\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\Devid\Desktop\COATA\COATA\Common\obj\Debug\netcoreapp3.1\Common.csprojAssemblyReference.cache
+C:\Users\Devid\Desktop\COATA\COATA\Common\obj\Debug\netcoreapp3.1\Common.csproj.CoreCompileInputs.cache
+C:\Users\Devid\Desktop\COATA\COATA\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfoInputs.cache
+C:\Users\Devid\Desktop\COATA\COATA\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfo.cs
+C:\Users\Devid\Desktop\COATA\COATA\Common\obj\Debug\netcoreapp3.1\Common.csproj.CopyComplete
+C:\Users\Devid\Desktop\COATA\COATA\Common\obj\Debug\netcoreapp3.1\Common.dll
+C:\Users\Devid\Desktop\COATA\COATA\Common\obj\Debug\netcoreapp3.1\Common.pdb

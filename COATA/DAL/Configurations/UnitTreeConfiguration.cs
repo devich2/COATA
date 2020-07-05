@@ -11,14 +11,9 @@ namespace DAL.Configurations
         {
             builder
                 .HasKey(x => x.Id);
-
-            builder.Property(x => x.Lft).HasColumnName("Lft");
-            builder.Property(x => x.Name).HasColumnName("Name");
-            builder.Property(x => x.Rgt).HasColumnName("Rgt");
-            builder.Property(x => x.ParentId).HasColumnName("ParentId");
-            builder.Property(x => x.UnitClassificationId).HasColumnName("UnitClassificationId");
-            builder.HasOne(x => x.Parent).WithOne().HasForeignKey<UnitTree>(x => x.ParentId);
-            builder.HasOne(x => x.UnitClassification).WithOne().HasForeignKey<UnitTree>(x => x.UnitClassificationId);
+            
+            builder.HasOne(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId);
+            builder.HasOne(x => x.UnitClassification).WithMany().HasForeignKey(x => x.UnitClassificationId);
         }
     }
 }

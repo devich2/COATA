@@ -7,7 +7,7 @@ namespace DAL
 {
     public class CoataDbContext : DbContext
     {
-        public CoataDbContext()
+        public CoataDbContext(DbContextOptions<CoataDbContext> dbContextOptions):base(dbContextOptions)
         {
         }
 
@@ -17,6 +17,7 @@ namespace DAL
             
             builder.ApplyConfiguration(new UnitTypeConfiguration());
             builder.ApplyConfiguration(new UnitClassificationConfiguration());
+            builder.ApplyConfiguration(new UnitTypeParentShipConfiguration());
             builder.ApplyConfiguration(new UnitTreeConfiguration());
             
             DatabaseInitializer.SeedDatabase(builder);
@@ -25,5 +26,6 @@ namespace DAL
         public DbSet<UnitTree> Units { get; set; }
         public DbSet<UnitType> UnitTypes { get; set; }
         public DbSet<UnitTypeParentShip> UnitTypeHierarchy { get; set; }
+        public DbSet<UnitClassification> UnitClassifications {get; set;}
     }
 }

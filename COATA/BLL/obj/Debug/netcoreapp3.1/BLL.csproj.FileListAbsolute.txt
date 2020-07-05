@@ -1,0 +1,14 @@
+C:\Users\Devid\Desktop\COATA\COATA\BLL\bin\Debug\netcoreapp3.1\BLL.deps.json
+C:\Users\Devid\Desktop\COATA\COATA\BLL\bin\Debug\netcoreapp3.1\BLL.dll
+C:\Users\Devid\Desktop\COATA\COATA\BLL\bin\Debug\netcoreapp3.1\BLL.pdb
+C:\Users\Devid\Desktop\COATA\COATA\BLL\bin\Debug\netcoreapp3.1\Common.dll
+C:\Users\Devid\Desktop\COATA\COATA\BLL\bin\Debug\netcoreapp3.1\DAL.dll
+C:\Users\Devid\Desktop\COATA\COATA\BLL\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\Devid\Desktop\COATA\COATA\BLL\bin\Debug\netcoreapp3.1\DAL.pdb
+C:\Users\Devid\Desktop\COATA\COATA\BLL\obj\Debug\netcoreapp3.1\BLL.csprojAssemblyReference.cache
+C:\Users\Devid\Desktop\COATA\COATA\BLL\obj\Debug\netcoreapp3.1\BLL.csproj.CoreCompileInputs.cache
+C:\Users\Devid\Desktop\COATA\COATA\BLL\obj\Debug\netcoreapp3.1\BLL.AssemblyInfoInputs.cache
+C:\Users\Devid\Desktop\COATA\COATA\BLL\obj\Debug\netcoreapp3.1\BLL.AssemblyInfo.cs
+C:\Users\Devid\Desktop\COATA\COATA\BLL\obj\Debug\netcoreapp3.1\BLL.csproj.CopyComplete
+C:\Users\Devid\Desktop\COATA\COATA\BLL\obj\Debug\netcoreapp3.1\BLL.dll
+C:\Users\Devid\Desktop\COATA\COATA\BLL\obj\Debug\netcoreapp3.1\BLL.pdb

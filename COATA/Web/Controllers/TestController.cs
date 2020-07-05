@@ -17,9 +17,9 @@ namespace Web.Controllers
             _unitOfWork = unitOfWork;
         }
         [HttpGet]
-        public async Task<List<UnitType>> GetUnitTypes()
+        public async Task<List<UnitTree>> GetUnitTypes()
         {
-            return await _unitOfWork.UnitTypes.GetAllAsync();
+            return await _unitOfWork.Units.GetAllAsync();
         }
     }
 }
