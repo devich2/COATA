@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BLL.Abstract.UnitTree;
@@ -157,7 +158,7 @@ namespace BLL.Impl.UnitTree
                 }
 
                 var allowedTypes = _unitTypeCache.GetFromCache(parentUnit.UnitClassification.UnitType.Name);
-                if (!allowedTypes.Contains(classification.UnitType.Name))
+                if (!allowedTypes.Any(x=>x.Id == classification.UnitType.Id && x.Name == classification.UnitType.Name))
                 {
                     return new DataResult<UnitAddResponse>()
                     {
@@ -170,7 +171,7 @@ namespace BLL.Impl.UnitTree
 
                 UnitClassification unitClassification =
                     await _unitOfWork.UnitClassifications.FirstOrDefaultAsync(x =>
-                        x.Name == classification.CustomName && x.UnitType == classification.UnitType);
+                        x.Name == classification.CustomName && Equals(x.UnitType, classification.UnitType));
 
                 if (unitClassification == null)
                 {

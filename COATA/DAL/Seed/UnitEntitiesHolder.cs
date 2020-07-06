@@ -9,53 +9,46 @@ namespace DAL.Seed
         private readonly List<UnitTree> _unitList = new List<UnitTree>()
         {
             #region Області
-
-            new UnitTree()
-            {
-                Id = 1,
-                ParentId = null,
-                Name = "ROOT",
-                UnitClassificationId = 35
-            },
+            
             new UnitTree()
             {
                 Id = 2,
-                ParentId = 1,
+                ParentId = null,
                 Name = "ВІННИЦЬКА ОБЛАСТЬ/М.ВІННИЦЯ",
                 UnitClassificationId = 1
             },
             new UnitTree()
             {
                 Id = 3,
-                ParentId = 1,
+                ParentId = null,
                 Name = "ВОЛИНСЬКА ОБЛАСТЬ/М.ЛУЦЬК",
                 UnitClassificationId = 1
             },
             new UnitTree()
             {
                 Id = 4,
-                ParentId = 1,
+                ParentId = null,
                 Name = "ДНІПРОПЕТРОВСЬКА ОБЛАСТЬ/М.ДНІПРО",
                 UnitClassificationId = 1
             },
             new UnitTree()
             {
                 Id = 5,
-                ParentId = 1,
+                ParentId = null,
                 Name = "ДОНЕЦЬКА ОБЛАСТЬ/М.ДОНЕЦЬК",
                 UnitClassificationId = 1
             },
             new UnitTree()
             {
                 Id = 6,
-                ParentId = 1,
+                ParentId = null,
                 Name = "ЖИТОМИРСЬКА ОБЛАСТЬ/М.ЖИТОМИР",
                 UnitClassificationId = 1
             },
             new UnitTree()
             {
                 Id = 7,
-                ParentId = 1,
+                ParentId = null,
                 Name = "ЗАКАРПАТСЬКА ОБЛАСТЬ/М.УЖГОРОД",
                 UnitClassificationId = 1
             },
@@ -419,8 +412,8 @@ namespace DAL.Seed
             {
                 if (unit.ParentId == null)
                 {
-                    unit.Lft = 1;
-                    unit.Rgt = 2;
+                    unit.Lft = _unitList.Max(x=>x.Rgt) + 1;
+                    unit.Rgt = unit.Lft + 1;
                 }
                 else
                 {

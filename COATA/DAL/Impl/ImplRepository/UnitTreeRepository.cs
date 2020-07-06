@@ -21,10 +21,10 @@ namespace DAL.Impl.ImplRepository
                 (from tofind in Context.Units
                     from upline in Context.Units.Include(x => x.UnitClassification).ThenInclude(x => x.UnitType)
                         .Where(x => x.Lft <= tofind.Lft && x.Rgt >= tofind.Rgt)
-                    where tofind.Name.ToLower().Contains(name.ToLower()) &&
+                    where (name == null || tofind.Name.ToLower().Contains(name.ToLower())) &&
                           (type == null || tofind.UnitClassification.UnitType.Name == type)
                     orderby upline.Lft
-                    select upline).AsNoTracking().Distinct();
+                    select upline).AsNoTracking();
             return await query.ToListAsync();
         }
 

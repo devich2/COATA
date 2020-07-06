@@ -9,6 +9,7 @@ namespace BLL.Mappers
         public UnitProfile()
         {
             CreateMap<UnitCreateOrUpdateDTO, UnitTree>().ReverseMap();
+            CreateMap<UnitTree, UnitSelectionDTO>().ReverseMap();
         }
     }
 }

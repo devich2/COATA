@@ -36,12 +36,7 @@ namespace DAL.Seed
             {
                 Id = 6,
                 Name = "Села"
-            },
-            new UnitType()
-            {
-                Id = 7,
-                Name = "root"
-            },
+            }
         };
         public List<UnitType> GetUnitTypes()
         {

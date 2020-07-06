@@ -102,13 +102,7 @@ namespace DAL.Seed
                 Id = 25,
                 UnitTypeId = 4,
                 Name = "СЕЛИЩА МІСЬКОГО ТИПУ ВЕРХНЬОДНІПРОВСЬКОГО Р-НУ"
-            },
-            new UnitClassification()
-            {
-                Id = 35,
-                UnitTypeId = 7,
-                Name = "ROOT"
-            },
+            }
         };
         public List<UnitClassification> GetClassifications()
         {

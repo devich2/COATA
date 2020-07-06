@@ -15,7 +15,7 @@ namespace DAL.Impl.ImplRepository
         {
         }
 
-        public Dictionary<string, List<string>> GetUnitTypesGroupedByParent()
+        public Dictionary<string, List<UnitType>> GetUnitTypesGroupedByParent()
         {
             return Context.UnitTypeHierarchy
                 .Include(x => x.UnitType)
@@ -23,7 +23,7 @@ namespace DAL.Impl.ImplRepository
                 .AsEnumerable()
                 .GroupBy(x => x.ParentUnitType.Name)
                 .ToDictionary(x => x.Key,
-                    x => x.Select(z => z.UnitType.Name).ToList());
+                    x => x.Select(z => z.UnitType).ToList());
         }
     }
 }

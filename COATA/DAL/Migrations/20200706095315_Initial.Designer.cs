@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(CoataDbContext))]
-    [Migration("20200705093747_StoredProcedures")]
-    partial class StoredProcedures
+    [Migration("20200706095315_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -136,12 +136,6 @@ namespace DAL.Migrations
                             Id = 25,
                             Name = "СЕЛИЩА МІСЬКОГО ТИПУ ВЕРХНЬОДНІПРОВСЬКОГО Р-НУ",
                             UnitTypeId = 4
-                        },
-                        new
-                        {
-                            Id = 35,
-                            Name = "ROOT",
-                            UnitTypeId = 7
                         });
                 });
 
@@ -178,460 +172,446 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            Lft = 1,
-                            Name = "ROOT",
-                            Rgt = 102,
-                            UnitClassificationId = 35
-                        },
-                        new
-                        {
                             Id = 2,
-                            Lft = 2,
+                            Lft = 1,
                             Name = "ВІННИЦЬКА ОБЛАСТЬ/М.ВІННИЦЯ",
-                            ParentId = 1,
-                            Rgt = 49,
+                            Rgt = 48,
                             UnitClassificationId = 1
                         },
                         new
                         {
                             Id = 3,
-                            Lft = 50,
+                            Lft = 49,
                             Name = "ВОЛИНСЬКА ОБЛАСТЬ/М.ЛУЦЬК",
-                            ParentId = 1,
-                            Rgt = 73,
+                            Rgt = 72,
                             UnitClassificationId = 1
                         },
                         new
                         {
                             Id = 4,
-                            Lft = 74,
+                            Lft = 73,
                             Name = "ДНІПРОПЕТРОВСЬКА ОБЛАСТЬ/М.ДНІПРО",
-                            ParentId = 1,
-                            Rgt = 95,
+                            Rgt = 94,
                             UnitClassificationId = 1
                         },
                         new
                         {
                             Id = 5,
-                            Lft = 96,
+                            Lft = 95,
                             Name = "ДОНЕЦЬКА ОБЛАСТЬ/М.ДОНЕЦЬК",
-                            ParentId = 1,
-                            Rgt = 97,
+                            Rgt = 96,
                             UnitClassificationId = 1
                         },
                         new
                         {
                             Id = 6,
-                            Lft = 98,
+                            Lft = 97,
                             Name = "ЖИТОМИРСЬКА ОБЛАСТЬ/М.ЖИТОМИР",
-                            ParentId = 1,
-                            Rgt = 99,
+                            Rgt = 98,
                             UnitClassificationId = 1
                         },
                         new
                         {
                             Id = 7,
-                            Lft = 100,
+                            Lft = 99,
                             Name = "ЗАКАРПАТСЬКА ОБЛАСТЬ/М.УЖГОРОД",
-                            ParentId = 1,
-                            Rgt = 101,
+                            Rgt = 100,
                             UnitClassificationId = 1
                         },
                         new
                         {
                             Id = 8,
-                            Lft = 3,
+                            Lft = 2,
                             Name = "БАРСЬКИЙ РАЙОН/М.БАР",
                             ParentId = 2,
-                            Rgt = 12,
+                            Rgt = 11,
                             UnitClassificationId = 2
                         },
                         new
                         {
                             Id = 9,
-                            Lft = 13,
+                            Lft = 12,
                             Name = "БЕРШАДСЬКИЙ РАЙОН/М.БЕРШАДЬ",
                             ParentId = 2,
-                            Rgt = 24,
+                            Rgt = 23,
                             UnitClassificationId = 2
                         },
                         new
                         {
                             Id = 10,
-                            Lft = 25,
+                            Lft = 24,
                             Name = "ВІННИЦЬКИЙ РАЙОН/М.ВІННИЦЯ",
                             ParentId = 2,
-                            Rgt = 32,
+                            Rgt = 31,
                             UnitClassificationId = 2
                         },
                         new
                         {
                             Id = 11,
-                            Lft = 33,
+                            Lft = 32,
                             Name = "ГАЙСИНСЬКИЙ РАЙОН/М.ГАЙСИН",
                             ParentId = 2,
-                            Rgt = 34,
+                            Rgt = 33,
                             UnitClassificationId = 2
                         },
                         new
                         {
                             Id = 12,
-                            Lft = 35,
+                            Lft = 34,
                             Name = "ЖМЕРИНСЬКИЙ РАЙОН/М.ЖМЕРИНКА",
                             ParentId = 2,
-                            Rgt = 38,
+                            Rgt = 37,
                             UnitClassificationId = 2
                         },
                         new
                         {
                             Id = 13,
-                            Lft = 51,
+                            Lft = 50,
                             Name = "ВОЛОДИМИР-ВОЛИНСЬКИЙ РАЙОН/М.ВОЛОДИМИР-ВОЛИНСЬКИЙ",
                             ParentId = 3,
-                            Rgt = 52,
+                            Rgt = 51,
                             UnitClassificationId = 3
                         },
                         new
                         {
                             Id = 14,
-                            Lft = 53,
+                            Lft = 52,
                             Name = "ВОЛОДИМИР-ВОЛИНСЬКИЙ РАЙОН/М.ВОЛОДИМИР-ВОЛИНСЬКИЙ",
                             ParentId = 3,
-                            Rgt = 54,
+                            Rgt = 53,
                             UnitClassificationId = 3
                         },
                         new
                         {
                             Id = 15,
-                            Lft = 55,
+                            Lft = 54,
                             Name = "ГОРОХІВСЬКИЙ РАЙОН/М.ГОРОХІВ",
                             ParentId = 3,
-                            Rgt = 60,
+                            Rgt = 59,
                             UnitClassificationId = 3
                         },
                         new
                         {
                             Id = 16,
-                            Lft = 61,
+                            Lft = 60,
                             Name = "ІВАНИЧІВСЬКИЙ РАЙОН/СМТ ІВАНИЧІ",
                             ParentId = 3,
-                            Rgt = 64,
+                            Rgt = 63,
                             UnitClassificationId = 3
                         },
                         new
                         {
                             Id = 17,
-                            Lft = 75,
+                            Lft = 74,
                             Name = "АПОСТОЛІВСЬКИЙ РАЙОН/М.АПОСТОЛОВЕ",
                             ParentId = 4,
-                            Rgt = 76,
+                            Rgt = 75,
                             UnitClassificationId = 4
                         },
                         new
                         {
                             Id = 18,
-                            Lft = 77,
+                            Lft = 76,
                             Name = "ВАСИЛЬКІВСЬКИЙ РАЙОН/СМТ ВАСИЛЬКІВКА",
                             ParentId = 4,
-                            Rgt = 84,
+                            Rgt = 83,
                             UnitClassificationId = 4
                         },
                         new
                         {
                             Id = 19,
-                            Lft = 85,
+                            Lft = 84,
                             Name = "ВЕРХНЬОДНІПРОВСЬКИЙ РАЙОН/М.ВЕРХНЬОДНІПРОВСЬК",
                             ParentId = 4,
-                            Rgt = 90,
+                            Rgt = 89,
                             UnitClassificationId = 4
                         },
                         new
                         {
                             Id = 20,
-                            Lft = 91,
+                            Lft = 90,
                             Name = "ДНІПРОВСЬКИЙ РАЙОН/М.ДНІПРО",
                             ParentId = 4,
-                            Rgt = 92,
+                            Rgt = 91,
                             UnitClassificationId = 4
                         },
                         new
                         {
                             Id = 21,
-                            Lft = 93,
+                            Lft = 92,
                             Name = "КРИВОРІЗЬКИЙ РАЙОН/М.КРИВИЙ РІГ",
                             ParentId = 4,
-                            Rgt = 94,
+                            Rgt = 93,
                             UnitClassificationId = 4
                         },
                         new
                         {
                             Id = 22,
-                            Lft = 39,
+                            Lft = 38,
                             Name = "ВІННИЦЯ",
                             ParentId = 2,
-                            Rgt = 40,
+                            Rgt = 39,
                             UnitClassificationId = 5
                         },
                         new
                         {
                             Id = 23,
-                            Lft = 41,
+                            Lft = 40,
                             Name = "МОГИЛІВ-ПОДІЛЬСЬКИЙ",
                             ParentId = 2,
-                            Rgt = 42,
+                            Rgt = 41,
                             UnitClassificationId = 5
                         },
                         new
                         {
                             Id = 24,
-                            Lft = 43,
+                            Lft = 42,
                             Name = "КОЗЯТИН",
                             ParentId = 2,
-                            Rgt = 44,
+                            Rgt = 43,
                             UnitClassificationId = 5
                         },
                         new
                         {
                             Id = 25,
-                            Lft = 45,
+                            Lft = 44,
                             Name = "ЛАДИЖИН",
                             ParentId = 2,
-                            Rgt = 46,
+                            Rgt = 45,
                             UnitClassificationId = 5
                         },
                         new
                         {
                             Id = 26,
-                            Lft = 47,
+                            Lft = 46,
                             Name = "ХМІЛЬНИК",
                             ParentId = 2,
-                            Rgt = 48,
+                            Rgt = 47,
                             UnitClassificationId = 5
                         },
                         new
                         {
                             Id = 27,
-                            Lft = 65,
+                            Lft = 64,
                             Name = "ЛУЦЬК",
                             ParentId = 3,
-                            Rgt = 66,
+                            Rgt = 65,
                             UnitClassificationId = 6
                         },
                         new
                         {
                             Id = 28,
-                            Lft = 67,
+                            Lft = 66,
                             Name = "ВОЛОДИМИР-ВОЛИНСЬКИЙ",
                             ParentId = 3,
-                            Rgt = 68,
+                            Rgt = 67,
                             UnitClassificationId = 6
                         },
                         new
                         {
                             Id = 29,
-                            Lft = 69,
+                            Lft = 68,
                             Name = "КОВЕЛЬ",
                             ParentId = 3,
-                            Rgt = 70,
+                            Rgt = 69,
                             UnitClassificationId = 6
                         },
                         new
                         {
                             Id = 30,
-                            Lft = 71,
+                            Lft = 70,
                             Name = "НОВОВОЛИНСЬК",
                             ParentId = 3,
-                            Rgt = 72,
+                            Rgt = 71,
                             UnitClassificationId = 6
                         },
                         new
                         {
                             Id = 31,
-                            Lft = 4,
+                            Lft = 3,
                             Name = "БАР",
                             ParentId = 8,
-                            Rgt = 5,
+                            Rgt = 4,
                             UnitClassificationId = 7
                         },
                         new
                         {
                             Id = 32,
-                            Lft = 14,
+                            Lft = 13,
                             Name = "БЕРШАДЬ",
                             ParentId = 9,
-                            Rgt = 15,
+                            Rgt = 14,
                             UnitClassificationId = 8
                         },
                         new
                         {
                             Id = 50,
-                            Lft = 6,
+                            Lft = 5,
                             Name = "АНТОНІВИІВСЬКА/С.АНТОНІВКА",
                             ParentId = 8,
-                            Rgt = 7,
+                            Rgt = 6,
                             UnitClassificationId = 9
                         },
                         new
                         {
                             Id = 51,
-                            Lft = 8,
+                            Lft = 7,
                             Name = "БАЛКІВСЬКА/С.БАЛКИ",
                             ParentId = 8,
-                            Rgt = 9,
+                            Rgt = 8,
                             UnitClassificationId = 9
                         },
                         new
                         {
                             Id = 52,
-                            Lft = 10,
+                            Lft = 9,
                             Name = "ВЕРХІВСЬКА/С.ВЕРХІВКА",
                             ParentId = 8,
-                            Rgt = 11,
+                            Rgt = 10,
                             UnitClassificationId = 9
                         },
                         new
                         {
                             Id = 60,
-                            Lft = 16,
+                            Lft = 15,
                             Name = "БАЛАНІВСЬКА C",
                             ParentId = 9,
-                            Rgt = 17,
+                            Rgt = 16,
                             UnitClassificationId = 10
                         },
                         new
                         {
                             Id = 61,
-                            Lft = 18,
+                            Lft = 17,
                             Name = "БИРЛІВСЬКА C",
                             ParentId = 9,
-                            Rgt = 19,
+                            Rgt = 18,
                             UnitClassificationId = 10
                         },
                         new
                         {
                             Id = 62,
-                            Lft = 20,
+                            Lft = 19,
                             Name = "ВЕЛИКОКИРІЇВСЬКА/С.ВЕЛИКА КИРІЇВКА",
                             ParentId = 9,
-                            Rgt = 21,
+                            Rgt = 20,
                             UnitClassificationId = 10
                         },
                         new
                         {
                             Id = 63,
-                            Lft = 22,
+                            Lft = 21,
                             Name = "ГОЛДАШІВСЬКА/С.ГОЛДАШІВКА",
                             ParentId = 9,
-                            Rgt = 23,
+                            Rgt = 22,
                             UnitClassificationId = 10
                         },
                         new
                         {
                             Id = 80,
-                            Lft = 26,
+                            Lft = 25,
                             Name = "ВОРОНОВИЦЯ",
                             ParentId = 10,
-                            Rgt = 27,
+                            Rgt = 26,
                             UnitClassificationId = 11
                         },
                         new
                         {
                             Id = 81,
-                            Lft = 28,
+                            Lft = 27,
                             Name = "ДЕСНА",
                             ParentId = 10,
-                            Rgt = 29,
+                            Rgt = 28,
                             UnitClassificationId = 11
                         },
                         new
                         {
                             Id = 82,
-                            Lft = 30,
+                            Lft = 29,
                             Name = "СТРИЖАВКА",
                             ParentId = 10,
-                            Rgt = 31,
+                            Rgt = 30,
                             UnitClassificationId = 11
                         },
                         new
                         {
                             Id = 85,
-                            Lft = 36,
+                            Lft = 35,
                             Name = "БРАЇЛІВ",
                             ParentId = 12,
-                            Rgt = 37,
+                            Rgt = 36,
                             UnitClassificationId = 12
                         },
                         new
                         {
                             Id = 95,
-                            Lft = 56,
+                            Lft = 55,
                             Name = "МАР'ЯНІВКА",
                             ParentId = 15,
-                            Rgt = 57,
+                            Rgt = 56,
                             UnitClassificationId = 15
                         },
                         new
                         {
                             Id = 96,
-                            Lft = 58,
+                            Lft = 57,
                             Name = "СЕНКЕВИЧІВКА",
                             ParentId = 15,
-                            Rgt = 59,
+                            Rgt = 58,
                             UnitClassificationId = 15
                         },
                         new
                         {
                             Id = 100,
-                            Lft = 62,
+                            Lft = 61,
                             Name = "ІВАНИЧІ",
                             ParentId = 16,
-                            Rgt = 63,
+                            Rgt = 62,
                             UnitClassificationId = 17
                         },
                         new
                         {
                             Id = 110,
-                            Lft = 78,
+                            Lft = 77,
                             Name = "ВАСИЛЬКІВКА",
                             ParentId = 18,
-                            Rgt = 79,
+                            Rgt = 78,
                             UnitClassificationId = 20
                         },
                         new
                         {
                             Id = 111,
-                            Lft = 80,
+                            Lft = 79,
                             Name = "ПИСЬМЕННЕ",
                             ParentId = 18,
-                            Rgt = 81,
+                            Rgt = 80,
                             UnitClassificationId = 20
                         },
                         new
                         {
                             Id = 112,
-                            Lft = 82,
+                            Lft = 81,
                             Name = "ЧАПЛИНЕ",
                             ParentId = 18,
-                            Rgt = 83,
+                            Rgt = 82,
                             UnitClassificationId = 20
                         },
                         new
                         {
                             Id = 120,
-                            Lft = 86,
+                            Lft = 85,
                             Name = "НОВОМИКОЛАЇВКА",
                             ParentId = 19,
-                            Rgt = 87,
+                            Rgt = 86,
                             UnitClassificationId = 25
                         },
                         new
                         {
                             Id = 121,
-                            Lft = 88,
+                            Lft = 87,
                             Name = "ДНІПРОВСЬКЕ",
                             ParentId = 19,
-                            Rgt = 89,
+                            Rgt = 88,
                             UnitClassificationId = 25
                         });
                 });
@@ -680,11 +660,6 @@ namespace DAL.Migrations
                         {
                             Id = 6,
                             Name = "Села"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "root"
                         });
                 });
 

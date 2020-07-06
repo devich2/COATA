@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BLL;
+using BLL.Impl.UnitTree;
+using Common.Utils;
 using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Converters;
+using Web.Infrastructure.Extensions;
 
 namespace Web
 {
@@ -28,7 +31,14 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson(options => { options.SerializerSettings.Converters.Add(new StringEnumConverter()); });;
+            services.AddControllers(options=>
+            {
+                options.Conventions.Add(new StatusCodeConvention());
+            }).AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                options.SerializerSettings.Converters.Add(new DeepDictionaryConverter());
+            });;
             DalDependencyInstaller.Install(services, Configuration);
             BllDependencyInstaller.Install(services);
         }

@@ -7,6 +7,6 @@ namespace DAL.Abstract.IRepository
 {
     public interface IUnitTypeParentShipRepository: IGenericKeyRepository<int, UnitTypeParentShip>
     {
-        Dictionary<string, List<string>> GetUnitTypesGroupedByParent();
+        Dictionary<string, List<UnitType>> GetUnitTypesGroupedByParent();
     }
 }
