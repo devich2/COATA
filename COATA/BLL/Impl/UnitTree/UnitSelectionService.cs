@@ -40,7 +40,7 @@ namespace BLL.Impl.UnitTree
 
             return new DataResult<UnitSelectionDTO>()
             {
-                Data = FlatToHierarchy(unitTrees, unitId),
+                Data = FlatToHierarchy(unitTrees, topLevelId: unitId),
                 ResponseStatusType = ResponseStatusType.Succeed
             };
         }
@@ -110,13 +110,14 @@ namespace BLL.Impl.UnitTree
             return new DataResult<UnitSelectionDTO>()
             {
                 ResponseStatusType = ResponseStatusType.Succeed,
-                Data = FlatToHierarchy2(expanded, expandableClassifications)
+                Data = FlatToHierarchy(expanded, expandableClassifications)
             };
         }
-
-        private UnitSelectionDTO FlatToHierarchy2(List<DAL.Entities.Tables.UnitTree> list,
-            List<int> expandableClassifications, int? topLevelId = null)
+        
+        private UnitSelectionDTO FlatToHierarchy(List<DAL.Entities.Tables.UnitTree> list, List<int> expandableClassifications = null, int? topLevelId = null)
         {
+            bool limited = expandableClassifications == null;
+            
             foreach (var unitTree in list.Where(x => x.ParentId == topLevelId))
             {
                 unitTree.ParentId = -1;
@@ -131,7 +132,7 @@ namespace BLL.Impl.UnitTree
             {
                 UnitSelectionDTO unitSelectionDto = _mapper.Map<UnitSelectionDTO>(item);
                 ClassificationDTO classification = _mapper.Map<ClassificationDTO>(item.UnitClassification);
-                if (expandableClassifications.Contains(item.UnitClassificationId))
+                if (limited || expandableClassifications.Contains(item.UnitClassificationId))
                 {
                     if (lookup.ContainsKey(item.ParentId.Value))
                     {
@@ -139,38 +140,6 @@ namespace BLL.Impl.UnitTree
                     }
                     lookup.Add(item.Id, unitSelectionDto);
                 }
-            }
-
-            foreach (var unitTree in lookup.Where(x => x.Value.ParentId == -1))
-            {
-                unitTree.Value.ParentId = topLevelId;
-            }
-
-            return lookup[-1];
-        }
-
-        private UnitSelectionDTO FlatToHierarchy(List<DAL.Entities.Tables.UnitTree> list, int? topLevelId = null)
-        {
-            foreach (var unitTree in list.Where(x => x.ParentId == topLevelId))
-            {
-                unitTree.ParentId = -1;
-            }
-
-            var lookup = new Dictionary<int, UnitSelectionDTO>()
-            {
-                {-1, new UnitSelectionDTO()}
-            };
-
-            foreach (DAL.Entities.Tables.UnitTree item in list)
-            {
-                UnitSelectionDTO unitSelectionDto = _mapper.Map<UnitSelectionDTO>(item);
-                ClassificationDTO classification = _mapper.Map<ClassificationDTO>(item.UnitClassification);
-                if (lookup.ContainsKey(item.ParentId.Value))
-                {
-                    AppendIfNotExist(lookup[item.ParentId.Value].Children, classification, unitSelectionDto);
-                }
-
-                lookup.Add(item.Id, unitSelectionDto);
             }
 
             foreach (var unitTree in lookup.Where(x => x.Value.ParentId == -1))
