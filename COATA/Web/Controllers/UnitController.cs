@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BLL.Abstract.UnitTree;
 using BLL.DTO.Response;
 using BLL.DTO.Result;
@@ -23,15 +24,27 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("expand")]
-        public async Task<DataResult<UnitSelectionDTO>> GetByParentId(int? unitId)
+        public async Task<DataResult<List<UnitPlainDTO>>> GetByParentId(int? unitId, int? classificationId)
         {
-            return await _unitSelectionService.GetUnitsByParentId(unitId);
+            return await _unitSelectionService.GetUnitsByParentId(unitId, classificationId);
+        }
+        [HttpGet]
+        [Route("expand_grouped")]
+        public async Task<DataResult<UnitSelectionDTO>> GetGroupedByClassificationAndParentId(int? unitId, int? classificationId)
+        {
+            return await _unitSelectionService.GetUnitsGroupedByClassificationByParentId(unitId, classificationId);
         }
         [HttpGet]
         [Route("search")]
-        public async Task<DataResult<UnitSelectionDTO>> Search(string name, string unitType)
+        public async Task<DataResult<UnitSelectionDTO>> SearchWithExpandedClassifications(string name, string unitType)
         {
-            return await _unitSelectionService.SearchByTypeAndName(name, unitType);
+            return await _unitSelectionService.SearchWithExpandedClassifications(name, unitType);
+        }
+        [HttpGet]
+        [Route("search_expanded")]
+        public async Task<DataResult<UnitSelectionDTO>> SearchWithExpandedParents(string name, string unitType)
+        {
+            return await _unitSelectionService.SearchByTypeAndNameWithParents(name, unitType);
         }
         [HttpPost]
         public async Task<DataResult<UnitAddResponse>> Create([FromBody] UnitCreateOrUpdateDTO model)

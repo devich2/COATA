@@ -38,11 +38,11 @@ namespace DAL.Impl.ImplRepository
             return await query.ToListAsync();
         }
 
-        public async Task<List<UnitTree>> GetByParentId(int? parentId)
+        public async Task<List<UnitTree>> GetByParentId(int? parentId, int? classificationId)
         {
             return
                 await Context.Units.Include(x => x.UnitClassification).ThenInclude(x => x.UnitType)
-                    .Where(x => x.ParentId == parentId).ToListAsync();
+                    .Where(x => x.ParentId == parentId && (classificationId == null || x.UnitClassificationId == classificationId)).ToListAsync();
         }
 
         public async Task UpdateBowers(int unitId, int parentId)

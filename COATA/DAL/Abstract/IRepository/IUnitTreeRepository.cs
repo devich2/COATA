@@ -9,7 +9,7 @@ namespace DAL.Abstract.IRepository
     {
         Task<List<UnitTree>> GetSinglePathByTypeAndName(string name, string type);
         Task<List<UnitTree>> GetNodesByParentIds(List<int?> parentIds);
-        Task<List<UnitTree>> GetByParentId(int? parentId);
+        Task<List<UnitTree>> GetByParentId(int? parentId, int? classificationId);
         Task DeleteSubTree(int unitId);
         Task UpdateBowers(int unitId, int parentId);
         Task<UnitTree> GetByIdExpandedAsync(int id);

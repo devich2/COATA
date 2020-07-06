@@ -1,7 +1,9 @@
-﻿using BLL.Abstract.Converter;
+﻿using BLL.Abstract.Classification;
+using BLL.Abstract.Converter;
 using BLL.Abstract.UnitTree;
 using BLL.Abstract.UnitType;
 using BLL.DTO.Result;
+using BLL.Impl.Classification;
 using BLL.Impl.Converter;
 using BLL.Impl.UnitTree;
 using BLL.Impl.UnitType;
@@ -17,6 +19,7 @@ namespace BLL.Impl
             services.AddTransient<IUnitSelectionService, UnitSelectionService>();
             services.AddTransient<IUnitEditService, UnitEditService>();
             services.AddTransient<IUnitTypeService, UnitTypeService>();
+            services.AddTransient<IClassificationService, ClassificationService>();
             //Other dependencies
             services.AddTransient<IUnitTypeCache, UnitTypeCache>();
             services.AddTransient<IConverterService<int, ResponseMessageType>, HttpStatusConverterService>();
