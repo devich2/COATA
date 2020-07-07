@@ -10,8 +10,8 @@ import { Injectable } from '@angular/core';
   export class ClassificationApiService {
   
     typeHier:UnitTypeAggr;
-    protected constructor(protected httpClient: HttpClient) {
-        this.getTypesHier().subscribe((data: UnitTypeAggr) => this.typeHier = data);
+    constructor(protected httpClient: HttpClient) {
+        this.getTypesHier().subscribe((data: UnitTypeAggr) => {this.typeHier = data; console.log(this.typeHier)});
     }
   
     getTypesHier(): Observable<UnitTypeAggr> {

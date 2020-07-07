@@ -14,7 +14,6 @@ import { Classification } from './classification.model';
   export class SelectionUnitModel extends UnitLightModel{
     children: any;
   }
-
   export class UnitBaseResponse {
     unitId: number;
   }

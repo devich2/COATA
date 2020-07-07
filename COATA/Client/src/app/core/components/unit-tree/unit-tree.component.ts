@@ -3,131 +3,102 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {Component, Injectable, OnInit} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {BehaviorSubject} from 'rxjs';
-
-
-import {NestedTreeControl} from '@angular/cdk/tree';
-import {MatTreeNestedDataSource} from '@angular/material/tree';
-
-/**
- * Json node data with nested structure. Each node has a filename and a value or a list of children
- */
-export class FileNode {
-  children: FileNode[];
-  filename: string;
-  type: any;
-}
-
-/**
- * The Json tree data in string. The data could be parsed into Json object
- */
-const TREE_DATA = JSON.stringify({
-  Applications: {
-    Calendar: 'app',
-    Chrome: 'app',
-    Webstorm: 'app'
-  },
-  Documents: {
-    angular: {
-      src: {
-        compiler: 'ts',
-        core: 'ts'
-      }
-    },
-    material2: {
-      src: {
-        button: 'ts',
-        checkbox: 'ts',
-        input: 'ts'
-      }
-    }
-  },
-  Downloads: {
-    October: 'pdf',
-    November: 'pdf',
-    Tutorial: 'html'
-  },
-  Pictures: {
-    'Photo Booth Library': {
-      Contents: 'dir',
-      Pictures: 'dir'
-    },
-    Sun: 'png',
-    Woods: 'jpg'
-  }
-});
-
-/**
- * File database, it can build a tree structured Json object from string.
- * Each node in Json object represents a file or a directory. For a file, it has filename and type.
- * For a directory, it has filename and children (a list of files or directories).
- * The input will be a json object string, and the output is a list of `FileNode` with nested
- * structure.
- */
-@Injectable()
-export class FileDatabase {
-  dataChange = new BehaviorSubject<FileNode[]>([]);
-
-  get data(): FileNode[] { return this.dataChange.value; }
-
-  constructor() {
-    this.initialize();
-  }
-
-  initialize() {
-    // Parse the string to json object.
-    const dataObject = JSON.parse(TREE_DATA);
-
-    // Build the tree nodes from Json object. The result is a list of `FileNode` with nested
-    //     file node as children.
-    const data = this.buildFileTree(dataObject, 0);
-
-    // Notify the change.
-    this.dataChange.next(data);
-  }
-
-  /**
-   * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
-   * The return value is the list of `FileNode`.
-   */
-  buildFileTree(obj: object, level: number): FileNode[] {
-    return Object.keys(obj).reduce<FileNode[]>((accumulator, key) => {
-      const value = obj[key];
-      const node = new FileNode();
-      node.filename = key;
-
-      if (value != null) {
-        if (typeof value === 'object') {
-          node.children = this.buildFileTree(value, level + 1);
-        } else {
-          node.type = value;
-        }
-      }
-
-      return accumulator.concat(node);
-    }, []);
-  }
-}
+import { DynamicDataSource } from './data-source';
+import { FlatNode, ItemNode } from './node.model';
 
 @Component({
   selector: 'app-unit-tree',
   templateUrl: './unit-tree.component.html',
   styleUrls: ['./unit-tree.component.css'],
-  providers: [FileDatabase]
+  providers: [DynamicDataSource]
 })
 export class UnitTreeComponent{
 
-  nestedTreeControl: NestedTreeControl<FileNode>;
-  nestedDataSource: MatTreeNestedDataSource<FileNode>;
+  flatNodeMap = new Map<FlatNode, ItemNode>();
 
-  constructor(database: FileDatabase) {
-    this.nestedTreeControl = new NestedTreeControl<FileNode>(this._getChildren);
-    this.nestedDataSource = new MatTreeNestedDataSource();
+  /** Map from nested node to flattened node. This helps us to keep the same object for selection */
+  nestedNodeMap = new Map<ItemNode, FlatNode>();
 
-    database.dataChange.subscribe(data => {this.nestedDataSource.data = data; console.log(data);console.log(this.nestedTreeControl.dataNodes)});
+  /** The new item's name */
+  newItemName = '';
+
+  treeControl: FlatTreeControl<FlatNode>;
+
+  treeFlattener: MatTreeFlattener<ItemNode, FlatNode>;
+
+  dataSource: MatTreeFlatDataSource<ItemNode, FlatNode>;
+
+  /** The selection for checklist */
+  checklistSelection = new SelectionModel<FlatNode>(true /* multiple */);
+
+  constructor(private _database: DynamicDataSource) {
+    this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
+      this.isExpandable, this.getChildren);
+    this.treeControl = new FlatTreeControl<FlatNode>(this.getLevel, this.isExpandable);
+    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+    _database.dataChange.subscribe(data => {
+      this.dataSource.data = data;
+    });
   }
 
-  hasNestedChild = (_: number, nodeData: FileNode) => !nodeData.type;
+  getLevel = (node: FlatNode) => node.level;
 
-  private _getChildren = (node: FileNode) => node.children;
+  isExpandable = (node: FlatNode) => node.expandable;
+
+  getChildren = (node: ItemNode): ItemNode[] => node.children;
+
+  hasChild = (_: number, _nodeData: FlatNode) => _nodeData.expandable;
+
+  hasNoContent = (_: number, _nodeData: FlatNode) => _nodeData.name === '';
+
+  /**
+   * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
+   */
+  transformer = (node: ItemNode, level: number) => {
+    const existingNode = this.nestedNodeMap.get(node);
+    const flatNode = existingNode && existingNode.name === node.name
+        ? existingNode
+        : new FlatNode();
+    flatNode.name = node.name;
+    flatNode.level = level;
+    flatNode.expandable = !!node.children;
+    this.flatNodeMap.set(flatNode, node);
+    this.nestedNodeMap.set(node, flatNode);
+    return flatNode;
+  }
+
+  /* Get the parent node of a node */
+  getParentNode(node: FlatNode): FlatNode | null {
+    const currentLevel = this.getLevel(node);
+
+    if (currentLevel < 1) {
+      return null;
+    }
+
+    const startIndex = this.treeControl.dataNodes.indexOf(node) - 1;
+
+    for (let i = startIndex; i >= 0; i--) {
+      const currentNode = this.treeControl.dataNodes[i];
+
+      if (this.getLevel(currentNode) < currentLevel) {
+        return currentNode;
+      }
+    }
+    return null;
+  }
+
+  /** Select the category so we can insert the new item. */
+  addNewItem(node: FlatNode) {
+    const parentNode = this.flatNodeMap.get(node);
+    this._database.insertItem(parentNode!, '');
+    this.treeControl.expand(node);
+    console.log(this.treeControl.dataNodes)
+  }
+
+  /** Save the node to database */
+  saveNode(node: FlatNode, itemValue: string) {
+    const nestedNode = this.flatNodeMap.get(node);
+    this._database.updateItem(nestedNode!, itemValue);
+  }
 }

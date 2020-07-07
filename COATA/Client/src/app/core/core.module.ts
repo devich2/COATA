@@ -33,6 +33,8 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { UnitTreeComponent} from './components/unit-tree/unit-tree.component';
 import {MatTreeModule} from '@angular/material/tree';
+import { UnitApiService } from './api/unit/unit-api.service';
+import { ClassificationApiService } from './api/unit/classification-api.service';
 
 const interceptors: Provider[] = [{provide: HTTP_INTERCEPTORS, useClass: UnwraperInterceptor, multi: true}];
 
@@ -75,7 +77,7 @@ if (!environment.production) {
     FontAwesomeModule,
     UnitTreeComponent
   ],
-  providers: [...interceptors]
+  providers: [...interceptors, UnitApiService, ClassificationApiService]
 })
 export class CoreModule {
 }

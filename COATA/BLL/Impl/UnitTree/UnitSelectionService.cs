@@ -128,17 +128,25 @@ namespace BLL.Impl.UnitTree
                 {-1, new UnitSelectionDTO()}
             };
 
-            foreach (DAL.Entities.Tables.UnitTree item in list)
+            foreach (var item in list)
             {
                 UnitSelectionDTO unitSelectionDto = _mapper.Map<UnitSelectionDTO>(item);
+                lookup.Add(item.Id, unitSelectionDto);
+            }
+            foreach (DAL.Entities.Tables.UnitTree item in list)
+            {
                 ClassificationDTO classification = _mapper.Map<ClassificationDTO>(item.UnitClassification);
+                var parentGroup = lookup[item.ParentId.Value].Children;
                 if (limited || expandableClassifications.Contains(item.UnitClassificationId))
                 {
                     if (lookup.ContainsKey(item.ParentId.Value))
                     {
-                        AppendIfNotExist(lookup[item.ParentId.Value].Children, classification, unitSelectionDto);
+                        AppendIfNotExist(parentGroup, classification, lookup[item.Id]);
                     }
-                    lookup.Add(item.Id, unitSelectionDto);
+                }
+                else if(!parentGroup.ContainsKey(classification))
+                {
+                    parentGroup.Add(classification, new List<UnitSelectionDTO>());
                 }
             }
 
