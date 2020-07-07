@@ -1,10 +1,15 @@
 
-import {SelectionModel} from '@angular/cdk/collections';
+import {SelectionModel, CollectionViewer, SelectionChange} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {Component, Injectable, OnInit} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { DynamicDataSource } from './data-source';
 import { FlatNode, ItemNode } from './node.model';
+import { UnitType } from '../../models/unit-type.model';
+import { Observable, merge } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { UnitApiService } from '../../api/unit/unit-api.service';
+import { ClassificationApiService } from '../../api/unit/classification-api.service';
 
 @Component({
   selector: 'app-unit-tree',
@@ -16,11 +21,7 @@ export class UnitTreeComponent{
 
   flatNodeMap = new Map<FlatNode, ItemNode>();
 
-  /** Map from nested node to flattened node. This helps us to keep the same object for selection */
   nestedNodeMap = new Map<ItemNode, FlatNode>();
-
-  /** The new item's name */
-  newItemName = '';
 
   treeControl: FlatTreeControl<FlatNode>;
 
@@ -28,16 +29,14 @@ export class UnitTreeComponent{
 
   dataSource: MatTreeFlatDataSource<ItemNode, FlatNode>;
 
-  /** The selection for checklist */
-  checklistSelection = new SelectionModel<FlatNode>(true /* multiple */);
-
-  constructor(private _database: DynamicDataSource) {
+  _database: DynamicDataSource
+  constructor(private unitService: UnitApiService, private classificationService : ClassificationApiService) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<FlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-    _database.dataChange.subscribe(data => {
+    this._database = new DynamicDataSource(this.unitService, this.classificationService, this.treeControl)
+    this._database.dataChange.subscribe(data => {
       this.dataSource.data = data;
     });
   }
@@ -52,23 +51,20 @@ export class UnitTreeComponent{
 
   hasNoContent = (_: number, _nodeData: FlatNode) => _nodeData.name === '';
 
-  /**
-   * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
-   */
   transformer = (node: ItemNode, level: number) => {
     const existingNode = this.nestedNodeMap.get(node);
-    const flatNode = existingNode && existingNode.name === node.name
+    const flatNode = existingNode && existingNode.name === node.name && existingNode.id == node.id
         ? existingNode
         : new FlatNode();
-    flatNode.name = node.name;
+    Object.assign(flatNode, node);
     flatNode.level = level;
-    flatNode.expandable = !!node.children;
+    flatNode.isClassification = node.data !== null && typeof node.data === 'object'
+    flatNode.expandable = true;
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
     return flatNode;
   }
 
-  /* Get the parent node of a node */
   getParentNode(node: FlatNode): FlatNode | null {
     const currentLevel = this.getLevel(node);
 
@@ -88,7 +84,15 @@ export class UnitTreeComponent{
     return null;
   }
 
-  /** Select the category so we can insert the new item. */
+  loadChildren(node: FlatNode) {
+    const mapped = this.flatNodeMap.get(node);
+    if(mapped.children!.length < 1)
+    {
+        const parent = this.getParentNode(node);
+        this._database.loadUnits(mapped, parent!!.id, node.isClassification)
+    }
+  }
+
   addNewItem(node: FlatNode) {
     const parentNode = this.flatNodeMap.get(node);
     this._database.insertItem(parentNode!, '');
@@ -96,7 +100,6 @@ export class UnitTreeComponent{
     console.log(this.treeControl.dataNodes)
   }
 
-  /** Save the node to database */
   saveNode(node: FlatNode, itemValue: string) {
     const nestedNode = this.flatNodeMap.get(node);
     this._database.updateItem(nestedNode!, itemValue);

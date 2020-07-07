@@ -13,5 +13,12 @@ export class FlatNode {
     id: number;
     name: string;
     data?: number | UnitType;
-    children: ItemNode[]
+    children: ItemNode[] = []
+
+    
+    constructor(id: number,name:string, data?: number | UnitType){
+      this.id = id;
+      this.name = name;
+      this.data = data;
+    }
   }

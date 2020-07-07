@@ -14,13 +14,15 @@
     </mat-tree-node>
   
     <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-      <button mat-icon-button matTreeNodeToggle
+      <button mat-icon-button 
+              (click)="loadChildren(node)"
+              matTreeNodeToggle
               [attr.aria-label]="'toggle ' + node.filename">
         <mat-icon class="mat-icon-rtl-mirror">
           {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
         </mat-icon>
       </button>
-        {{node.item}}
+        {{node.name}}
       <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button>
     </mat-tree-node>
   </mat-tree>

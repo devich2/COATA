@@ -5,6 +5,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { UnitTypeAggr } from '../../models/unit-type.model';
 import { Injectable } from '@angular/core';
+import { Classification } from '../../models/classification.model';
   
   @Injectable({providedIn: 'root'})
   export class ClassificationApiService {
@@ -18,8 +19,8 @@ import { Injectable } from '@angular/core';
       return this.httpClient.get<UnitTypeAggr>('/api/unit_types');
     }
   
-    getClassificationsForParent(unitId:number = null): Observable<SelectionUnitModel> {
-      return this.httpClient.get<SelectionUnitModel>(`/api/classification/{unitId}`);
+    getClassificationsForParent(unitId:number = null): Observable<Classification[]> {
+      return this.httpClient.get<Classification[]>(`/api/classification/${unitId}`);
     }
   
   }
