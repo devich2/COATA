@@ -7,7 +7,7 @@ namespace BLL.DTO.Classification
     public class ClassificationDTO
     {
         public int Id {get; set;}
-        public string CustomName {get; set;}
+        public string Name {get; set;}
         public DAL.Entities.Tables.UnitType UnitType {get; set;}
 
         public override bool Equals(object? obj)
@@ -19,12 +19,12 @@ namespace BLL.DTO.Classification
             if (!(obj is ClassificationDTO other))
                 return false;
 
-            return other.Id == Id && other.CustomName == CustomName && Object.Equals(other.UnitType, UnitType);
+            return other.Id == Id && other.Name == Name && Object.Equals(other.UnitType, UnitType);
         }
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + CustomName.GetHashCode() + UnitType.GetHashCode();
+            return Id.GetHashCode() + Name.GetHashCode() + UnitType.GetHashCode();
         }
     }
 }

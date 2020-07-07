@@ -11,7 +11,7 @@ namespace BLL.Mappers
             CreateMap<UnitClassification, ClassificationDTO>()
                 .ForMember(x => x.Id, opt =>
                     opt.MapFrom(src => src.Id))
-                .ForMember(x => x.CustomName, opt =>
+                .ForMember(x => x.Name, opt =>
                     opt.MapFrom(src => src.Name))
                 .ForMember(x => x.UnitType, opt =>
                     opt.MapFrom(src => src.UnitType));
