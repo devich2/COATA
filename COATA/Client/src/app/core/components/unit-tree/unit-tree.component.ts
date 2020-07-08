@@ -21,6 +21,7 @@ import { ClassificationCreateModel } from '../../models/classification.model';
 export class UnitTreeComponent{
 
   search:string;
+  selected:string;
 
   flatNodeMap = new Map<FlatNode, ItemNode>();
 
@@ -60,11 +61,12 @@ export class UnitTreeComponent{
 
   transformer = (node: ItemNode, level: number) => {
     const existingNode = this.nestedNodeMap.get(node);
-    const flatNode = existingNode && existingNode.name === node.name && existingNode.id === existingNode.id
+    const flatNode = existingNode && existingNode.name === node.name 
+        && existingNode.id === existingNode.id
         ? existingNode
         : new FlatNode();
     Object.assign(flatNode, node);
-    flatNode.isEditable = node.isEditable;
+    flatNode.isEditable = node.isEditable !== undefined ? node.isEditable : false;
     flatNode.isTemplate = node.isTemplate || false;
     flatNode.level = level;
     flatNode.isClassification = this.isClassification(node);
@@ -76,10 +78,28 @@ export class UnitTreeComponent{
 
   changeEdit(node: FlatNode)
   {
-     node.isEditable = !node.isEditable;
      const mapped = this.flatNodeMap.get(node);
      this._database.updateEditable(mapped, !node.isEditable)
   }
+
+  filterBy()
+  {
+    this._database.filter(this.search, this.selected, ()=>this.treeControl.expandAll());
+  }
+
+  delete(node: FlatNode)
+  {
+    const mapped = this.flatNodeMap.get(node);
+    const parent = this.flatNodeMap.get(this.getParentNode(node));
+    this._database.deleteNode(mapped, parent);
+  }
+
+  updateItem(node: FlatNode, value:string)
+  {
+     const mapped = this.flatNodeMap.get(node);
+     this._database.updateNode(mapped, value);
+  }
+
   getTypes()
   {
     return this._database.getTypes();
@@ -89,6 +109,7 @@ export class UnitTreeComponent{
   {
     return this._database.getSubjectTypes((node.data as UnitType).name);
   }
+
   isClassification(node: ItemNode)
   {
     return node.data !== null && typeof node.data === 'object';

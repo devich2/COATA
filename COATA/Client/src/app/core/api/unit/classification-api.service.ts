@@ -1,7 +1,4 @@
-import {
-    SelectionUnitModel
-  } from '../../models/unit.model';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { UnitTypeAggr } from '../../models/unit-type.model';
 import { Injectable } from '@angular/core';

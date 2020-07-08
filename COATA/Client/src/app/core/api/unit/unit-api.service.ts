@@ -64,7 +64,7 @@ import { Injectable } from '@angular/core';
     }
   
     delete(unitId: number): Observable<UnitBaseResponse> {
-      return this.httpClient.delete<UnitBaseResponse>(`/api/content/${unitId}`);
+      return this.httpClient.delete<UnitBaseResponse>(`/api/unit/${unitId}`);
     }
   
   }

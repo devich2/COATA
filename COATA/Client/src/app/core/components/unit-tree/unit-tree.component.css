@@ -1,19 +1,16 @@
 .mat-form-field {
   margin-right: 4px;
 }
-.flex
-{
-  display: inline-flex;
-
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  text-align: center;
+  align-content: space-between;
 }
-.searchForm {
-  padding: 18px 30px 10px;
-  margin-bottom: 20px;
-  width: 50%;
-    margin: 80px 0;
-    position: relative;
-    -moz-border-radius: 16px;
-    -webkit-border-radius: 16px;
-    border-radius: 16px;
-
+.searchForm{
+ width: 20%;
+}
+.icon{
+  margin-top: 13px;
 }

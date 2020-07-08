@@ -25,9 +25,37 @@ export class DynamicDataSource{
     this.unitService.expandGrouped().subscribe((model : SelectionUnitModel)=> this.handleSeed(model))
   }
 
+  filter(name: string, type: string, callback :()=> void)
+  {
+    this.unitService.search(name, type)
+      .subscribe((data: SelectionUnitModel) => {
+        this.handleSeed(data);
+        callback()
+      })
+  }
+
   getTypes(): string[]
   {
     return Object.keys(this.classificationService.typeHier.subjectTypes);
+  }
+
+  deleteNode(node: ItemNode, parent: ItemNode)
+  {
+    this.unitService.delete(node.id).
+      subscribe(() => {
+        parent.children.splice(parent.children.indexOf(node), 1);
+        this.dataChange.next(this.data);
+      });
+  }
+
+  updateNode(node: ItemNode, text:string)
+  {
+     this.unitService.updateUnit(node.id, {name : text} as UnitModel)
+      .subscribe(() =>{
+        node.name = text;
+        node.isEditable = false;
+        this.dataChange.next(this.data);
+      });
   }
 
   handleSeed(model: SelectionUnitModel)

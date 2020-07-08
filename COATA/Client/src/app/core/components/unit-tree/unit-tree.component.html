@@ -1,19 +1,16 @@
-
-<div class ="flex">
-  <form class = "searchForm">
+<div class = "box">
     <mat-form-field>
-      <textarea matInput placeholder="search..." [(ngModel)] ="search"></textarea>
+      <input matInput [(ngModel)] ="search">
     </mat-form-field>
     <mat-form-field>
       <mat-label>UnitType</mat-label>
-      <mat-select appearance ="fill" #type>
-        <mat-option *ngFor="let unitType of getTypes()" [value]="unitType">
+      <mat-select [(value)]="selected">
+        <mat-option *ngFor="let unitType of getTypes();" [value]="unitType">
           {{unitType}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-icon-button *ngIf="editAvailable(node)" (click)="changeEdit(node)"><mat-icon>edit</mat-icon></button>
-  </form>
+        <button mat-icon-button class ="icon" (click)="filterBy()"><mat-icon>search</mat-icon></button>
 </div>
 
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
@@ -39,7 +36,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>UnitType</mat-label>
-        <mat-select appearance ="fill" #type>
+        <mat-select #type>
           <mat-option *ngFor="let unitType of getSubjectTypes(node)" [value]="unitType.id">
             {{unitType.name}}
           </mat-option>
@@ -57,10 +54,13 @@
           {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
         </mat-icon>
       </button>
-      {{node.name}}
-      <button mat-icon-button (click)="addTemplate(node)"><mat-icon>add</mat-icon></button>
-      <button mat-icon-butto *ngif="node.isEditable" matInput #itemValue placeholder="...." value="node.name">Save</button>
+      <div *ngIf="node.isEditable; else elseBlock"> <input value="{{node.name}}" #name>
+        <button mat-icon-button (click)="updateItem(node, name.value)">Save</button>
+      </div>
+      <ng-template #elseBlock>{{node.name}}</ng-template>  
+      <button mat-icon-button *ngIf="!node.isClassification" (click)="addTemplate(node)"><mat-icon>add</mat-icon></button>
       <button mat-icon-button *ngIf="editAvailable(node)" (click)="changeEdit(node)"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button *ngIf="!node.isClassification" (click)="delete(node)"><mat-icon>delete</mat-icon></button>
     </mat-tree-node>
   </mat-tree>
   

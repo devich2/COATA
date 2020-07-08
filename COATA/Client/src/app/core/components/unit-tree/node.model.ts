@@ -9,7 +9,7 @@ export class FlatNode {
     isClassification: boolean;
     wasExpanded: boolean;
     isTemplate: boolean;
-    isEditable: boolean;
+    isEditable:boolean;
   }
 
   export class ItemNode {
