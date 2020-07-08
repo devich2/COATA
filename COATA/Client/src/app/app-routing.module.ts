@@ -4,7 +4,7 @@ import { UnitTreeComponent } from './core/components/unit-tree/unit-tree.compone
 
 
 const routes: Routes = [
-  {path: '**', component : UnitTreeComponent}
+  { path: '**', component: UnitTreeComponent }
 ];
 
 @NgModule({
