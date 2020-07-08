@@ -77,3 +77,5 @@ C:\Users\Devid\Desktop\COATA\COATA\Web\bin\Debug\netcoreapp3.1\Swashbuckle.AspNe
 C:\Users\Devid\Desktop\COATA\COATA\Web\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Devid\Desktop\COATA\COATA\Web\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Devid\Desktop\COATA\COATA\Web\obj\Debug\netcoreapp3.1\Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Devid\Desktop\COATA\COATA\Web\bin\Debug\netcoreapp3.1\Web.xml
+C:\Users\Devid\Desktop\COATA\COATA\Web\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll

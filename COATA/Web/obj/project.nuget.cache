@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7BUeuVpqd2hLYF9iLzc5IAq9NzQ8Rtzw7cegKod0Yx3VODwPQPKiPydBx+BzKsbzWduDPkLXOzuTOMDPOuqAhw==",
+  "dgSpecHash": "wQdVKK5WtBzheknF2ZRK3LnBJ4LCUChQaHIbNxt4dRfgBNdoyPzvc/jnMRS5LSO8sDOZKVuxPpu97Q921/nQ5Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Devid\\Desktop\\COATA\\COATA\\Web\\Web.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "C:\\Users\\Devid\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\5.0.0-preview.6.20312.4\\microsoft.entityframeworkcore.relational.5.0.0-preview.6.20312.4.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.0-preview.6.20312.4\\microsoft.entityframeworkcore.sqlserver.5.0.0-preview.6.20312.4.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\5.0.0-preview.6.20312.4\\microsoft.entityframeworkcore.tools.5.0.0-preview.6.20312.4.nupkg.sha512",
+    "C:\\Users\\Devid\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0-preview.3.20215.2\\microsoft.extensions.caching.abstractions.5.0.0-preview.3.20215.2.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0-preview.3.20215.2\\microsoft.extensions.caching.memory.5.0.0-preview.3.20215.2.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\microsoft.extensions.configuration\\5.0.0-preview.3.20215.2\\microsoft.extensions.configuration.5.0.0-preview.3.20215.2.nupkg.sha512",
@@ -46,9 +47,11 @@
     "C:\\Users\\Devid\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\Devid\\.nuget\\packages\\swashbuckle.aspnetcore\\5.5.1\\swashbuckle.aspnetcore.5.5.1.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\swashbuckle.aspnetcore.newtonsoft\\5.5.1\\swashbuckle.aspnetcore.newtonsoft.5.5.1.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.5.1\\swashbuckle.aspnetcore.swagger.5.5.1.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.5.1\\swashbuckle.aspnetcore.swaggergen.5.5.1.nupkg.sha512",
+    "C:\\Users\\Devid\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.5.1\\swashbuckle.aspnetcore.swaggerui.5.5.1.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
     "C:\\Users\\Devid\\.nuget\\packages\\system.collections.immutable\\5.0.0-preview.3.20214.6\\system.collections.immutable.5.0.0-preview.3.20214.6.nupkg.sha512",
