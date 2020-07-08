@@ -15,6 +15,7 @@ namespace BLL.Mappers
                     opt.MapFrom(src=>src.Name))
                 .ForMember(x=>x.UnitType, opt=>
                     opt.MapFrom(src=>src.UnitType));
+            CreateMap<ClassificationCreateDTO, UnitClassification>().ReverseMap();
         }
     }
 }

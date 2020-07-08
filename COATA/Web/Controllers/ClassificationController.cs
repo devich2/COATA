@@ -17,11 +17,18 @@ namespace Web.Controllers
         {
             _classificationService = classificationService;
         }
+        
         [HttpGet]
         [Route("{unitId?}")]
         public async Task<DataResult<List<ClassificationDTO>>> GetClassificationsForChildren(int? unitId)
         {
             return await _classificationService.GetClassificationByParentId(unitId);
+        }
+        
+        [HttpPost]
+        public async Task<DataResult<ClassificationAddResponse>> Create([FromBody] ClassificationCreateDTO model)
+        {
+            return await _classificationService.ProcessClassificationCreate(model);
         }
     }
 }

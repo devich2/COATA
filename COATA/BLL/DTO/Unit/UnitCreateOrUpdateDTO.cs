@@ -7,6 +7,6 @@ namespace BLL.DTO.Unit
         public int Id {get; set;}
         public int ParentId {get; set;}
         public string Name {get; set;}
-        public ClassificationDTO Classification {get; set;}
+        public int UnitClassificationId {get; set;}
     }
 }

@@ -1,3 +1,19 @@
 .mat-form-field {
   margin-right: 4px;
 }
+.flex
+{
+  display: inline-flex;
+
+}
+.searchForm {
+  padding: 18px 30px 10px;
+  margin-bottom: 20px;
+  width: 50%;
+    margin: 80px 0;
+    position: relative;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+
+}

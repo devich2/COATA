@@ -136,7 +136,7 @@ namespace BLL.Impl.UnitTree
         {
             return await _transactionManager.ExecuteInImplicitTransactionAsync(async () =>
             {
-                ClassificationDTO classification = model.Classification;
+                UnitClassification classification = await _unitOfWork.UnitClassifications.GetByIdAsync(model.UnitClassificationId);
                 if (classification == null)
                 {
                     return new DataResult<UnitAddResponse>()
@@ -166,24 +166,7 @@ namespace BLL.Impl.UnitTree
                         ResponseStatusType = ResponseStatusType.Error
                     };
                 }
-
                 DAL.Entities.Tables.UnitTree unitEntity = _mapper.Map<DAL.Entities.Tables.UnitTree>(model);
-
-                UnitClassification unitClassification =
-                    await _unitOfWork.UnitClassifications.FirstOrDefaultAsync(x =>
-                        x.Name == classification.Name && Equals(x.UnitType, classification.UnitType));
-
-                if (unitClassification == null)
-                {
-                    unitClassification = await _unitOfWork.UnitClassifications.AddAsync(new UnitClassification()
-                    {
-                        UnitTypeId = classification.UnitType.Id,
-                        Name = classification.Name
-                    });
-                    await _unitOfWork.SaveAsync();
-                }
-
-                unitEntity.UnitClassificationId = unitClassification.Id;
 
                 await _unitOfWork.Units.AddAsync(unitEntity);
                 await _unitOfWork.SaveAsync();

@@ -10,6 +10,7 @@ import { Observable, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UnitApiService } from '../../api/unit/unit-api.service';
 import { ClassificationApiService } from '../../api/unit/classification-api.service';
+import { ClassificationCreateModel } from '../../models/classification.model';
 
 @Component({
   selector: 'app-unit-tree',
@@ -18,6 +19,8 @@ import { ClassificationApiService } from '../../api/unit/classification-api.serv
   providers: [DynamicDataSource]
 })
 export class UnitTreeComponent{
+
+  search:string;
 
   flatNodeMap = new Map<FlatNode, ItemNode>();
 
@@ -29,13 +32,11 @@ export class UnitTreeComponent{
 
   dataSource: MatTreeFlatDataSource<ItemNode, FlatNode>;
 
-  _database: DynamicDataSource
-  constructor(private unitService: UnitApiService, private classificationService : ClassificationApiService) {
+  constructor(private _database: DynamicDataSource) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<FlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-    this._database = new DynamicDataSource(this.unitService, this.classificationService, this.treeControl)
     this._database.dataChange.subscribe(data => {
       this.dataSource.data = data;
     });
@@ -51,18 +52,46 @@ export class UnitTreeComponent{
 
   hasNoContent = (_: number, _nodeData: FlatNode) => _nodeData.name === '';
 
+  isUnitTemplate = (_: number, _nodeData: FlatNode) => _nodeData.isTemplate && !_nodeData.isClassification;
+
+  isClassificationTemplate = (_: number, _nodeData: FlatNode) => _nodeData.isTemplate && _nodeData.isClassification;
+
+  editAvailable = (node: FlatNode): boolean => !node.isClassification;
+
   transformer = (node: ItemNode, level: number) => {
     const existingNode = this.nestedNodeMap.get(node);
-    const flatNode = existingNode && existingNode.name === node.name && existingNode.id == node.id
+    const flatNode = existingNode && existingNode.name === node.name && existingNode.id === existingNode.id
         ? existingNode
         : new FlatNode();
     Object.assign(flatNode, node);
+    flatNode.isEditable = node.isEditable;
+    flatNode.isTemplate = node.isTemplate || false;
     flatNode.level = level;
-    flatNode.isClassification = node.data !== null && typeof node.data === 'object'
+    flatNode.isClassification = this.isClassification(node);
     flatNode.expandable = true;
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
     return flatNode;
+  }
+
+  changeEdit(node: FlatNode)
+  {
+     node.isEditable = !node.isEditable;
+     const mapped = this.flatNodeMap.get(node);
+     this._database.updateEditable(mapped, !node.isEditable)
+  }
+  getTypes()
+  {
+    return this._database.getTypes();
+  }
+
+  getSubjectTypes(node: FlatNode): UnitType[]
+  {
+    return this._database.getSubjectTypes((node.data as UnitType).name);
+  }
+  isClassification(node: ItemNode)
+  {
+    return node.data !== null && typeof node.data === 'object';
   }
 
   getParentNode(node: FlatNode): FlatNode | null {
@@ -86,22 +115,52 @@ export class UnitTreeComponent{
 
   loadChildren(node: FlatNode) {
     const mapped = this.flatNodeMap.get(node);
-    if(mapped.children!.length < 1)
+    if(!node.wasExpanded)
     {
+      if(node.isClassification)
+      {
         const parent = this.getParentNode(node);
-        this._database.loadUnits(mapped, parent!!.id, node.isClassification)
+        this._database.loadUnits(mapped, parent!!.id)
+      }
+      else
+        this._database.loadClassifications(mapped)
+      node.wasExpanded = true;
+      this.dataSource._data.next(this._database.data);
     }
   }
 
-  addNewItem(node: FlatNode) {
-    const parentNode = this.flatNodeMap.get(node);
-    this._database.insertItem(parentNode!, '');
-    this.treeControl.expand(node);
-    console.log(this.treeControl.dataNodes)
+  saveClassification(node:FlatNode, value: string, unitTypeId: number)
+  {
+    const mapped = this.flatNodeMap.get(node);
+    const parent = this.getParentNode(node);
+    this._database.saveClassification(mapped, value, parent.id, unitTypeId);
   }
 
-  saveNode(node: FlatNode, itemValue: string) {
-    const nestedNode = this.flatNodeMap.get(node);
-    this._database.updateItem(nestedNode!, itemValue);
+  saveUnit(node: FlatNode, value: string)
+  {
+    const mapped = this.flatNodeMap.get(node);
+    const parent = this.getParentNode(node);
+    this._database.saveUnit(mapped, value, parent.id);
   }
+
+  addTemplate(node: FlatNode) {
+    const mapped = this.flatNodeMap.get(node);
+    const parent = this.getParentNode(node);
+    if(!node.wasExpanded)
+    {
+      if(node.isClassification)
+      {
+        this._database.loadUnits(mapped, parent.id)
+      }
+      else
+      {
+        this._database.loadClassifications(mapped)
+      }
+    }
+    this._database.insertTemplate(mapped!, node.isClassification 
+        ? parent.id 
+        : {name: (parent.data as UnitType).name} as UnitType);
+    this.treeControl.expand(node);
+  }
+
 }

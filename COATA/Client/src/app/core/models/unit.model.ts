@@ -8,7 +8,7 @@ import { Classification } from './classification.model';
   }
 
   export class UnitModel extends UnitLightModel{
-    classification:Classification;
+    unitClassificationId: number;
   }
 
   export class SelectionUnitModel extends UnitLightModel{

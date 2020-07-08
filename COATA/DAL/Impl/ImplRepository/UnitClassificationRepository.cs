@@ -17,6 +17,13 @@ namespace DAL.Impl.ImplRepository
         {
         }
 
+        public override Task<UnitClassification> GetByIdAsync(int id)
+        {
+            return Context.UnitClassifications
+                .Include(x => x.UnitType)
+                    .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<List<UnitClassification>> GetClassificationByParentId(int? unitId)
         {
             var list = await Context.Units.Include(x => x.UnitClassification).ThenInclude(x => x.UnitType)
