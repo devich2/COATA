@@ -28,6 +28,9 @@
       <input matInput #itemValue placeholder="....">
     </mat-form-field>
     <button mat-button (click)="saveUnit(node, itemValue.value)">Save</button>
+    <button mat-icon-button (click)="deleteTemplate(node)">
+      <mat-icon>delete</mat-icon>
+    </button>
   </mat-tree-node>
 
   <mat-tree-node *matTreeNodeDef="let node; when: isClassificationTemplate" matTreeNodePadding>
@@ -45,6 +48,9 @@
       </mat-select>
     </mat-form-field>
     <button mat-button (click)="saveClassification(node, itemValue.value, type.value)">Save</button>
+    <button mat-icon-button (click)="deleteTemplate(node)">
+      <mat-icon>delete</mat-icon>
+    </button>
   </mat-tree-node>
 
   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>

@@ -82,7 +82,14 @@ export class UnitTreeComponent {
   delete(node: FlatNode) {
     const mapped = this.flatNodeMap.get(node);
     const parent = this.flatNodeMap.get(this.getParentNode(node));
-    this._database.deleteNode(mapped, parent);
+    this._database.deleteUnit(mapped, parent);
+  }
+
+  deleteTemplate(node)
+  {
+    const mapped = this.flatNodeMap.get(node);
+    const parent = this.flatNodeMap.get(this.getParentNode(node));
+    this._database.delete(mapped, parent);
   }
 
   updateItem(node: FlatNode, value: string) {
@@ -161,6 +168,7 @@ export class UnitTreeComponent {
     this._database.insertTemplate(mapped!, node.isClassification
       ? parent.id
       : { name: (parent.data as UnitType).name } as UnitType);
+    node.wasExpanded = true;
     this.treeControl.expand(node);
   }
 

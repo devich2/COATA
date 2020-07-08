@@ -35,12 +35,17 @@ export class DynamicDataSource {
     return Object.keys(this.classificationService.typeHier.subjectTypes);
   }
 
-  deleteNode(node: ItemNode, parent: ItemNode) {
+  deleteUnit(node: ItemNode, parent: ItemNode) {
     this.unitService.delete(node.id).
       subscribe(() => {
         parent.children.splice(parent.children.indexOf(node), 1);
         this.dataChange.next(this.data);
       });
+  }
+
+  delete(node: ItemNode, parent: ItemNode) {
+    parent.children.splice(parent.children.indexOf(node), 1);
+    this.dataChange.next(this.data);
   }
 
   updateNode(node: ItemNode, text: string) {
@@ -119,7 +124,7 @@ export class DynamicDataSource {
         this.dataChange.next(this.data);
       });
   }
-  
+
   loadUnits(node: ItemNode, parentId: number) {
 
     this.unitService.expand(parentId, node.id).pipe(map((data: UnitModel[]) =>
