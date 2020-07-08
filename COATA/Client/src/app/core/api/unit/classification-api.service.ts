@@ -9,7 +9,7 @@ import { Classification, ClassificationAddResponse, ClassificationCreateModel } 
   
     typeHier:UnitTypeAggr;
     constructor(protected httpClient: HttpClient) {
-        this.getTypesHier().subscribe((data: UnitTypeAggr) => {this.typeHier = data; console.log(this.typeHier)});
+        this.getTypesHier().subscribe((data: UnitTypeAggr) => {this.typeHier = data;});
     }
   
     getTypesHier(): Observable<UnitTypeAggr> {

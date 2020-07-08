@@ -1,66 +1,71 @@
-<div class = "box">
-    <mat-form-field>
-      <input matInput [(ngModel)] ="search">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>UnitType</mat-label>
-      <mat-select [(value)]="selected">
-        <mat-option *ngFor="let unitType of getTypes();" [value]="unitType">
-          {{unitType}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-        <button mat-icon-button class ="icon" (click)="filterBy()"><mat-icon>search</mat-icon></button>
+<div class="box">
+  <mat-form-field>
+    <input matInput [(ngModel)]="search">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>UnitType</mat-label>
+    <mat-select [(value)]="selected">
+      <mat-option *ngFor="let unitType of getTypes();" [value]="unitType">
+        {{unitType}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-icon-button class="icon" (click)="filterBy()">
+    <mat-icon>search</mat-icon>
+  </button>
 </div>
 
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-      <button mat-icon-button disabled></button>
-        {{node.name}}
-    </mat-tree-node>
-  
-    <mat-tree-node *matTreeNodeDef="let node; when: isUnitTemplate" matTreeNodePadding>
-      <button mat-icon-button disabled></button>
-      <mat-form-field>
-        <mat-label>New unit...</mat-label>
-        <input matInput #itemValue placeholder="....">
-      </mat-form-field>
-      <button mat-button (click)="saveUnit(node, itemValue.value)">Save</button>
-    </mat-tree-node>
-    
-    <mat-tree-node *matTreeNodeDef="let node; when: isClassificationTemplate" matTreeNodePadding>
-      <button mat-icon-button disabled></button>
-      <mat-form-field>
-        <mat-label>Custom name...</mat-label>
-        <input matInput #itemValue placeholder="....">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>UnitType</mat-label>
-        <mat-select #type>
-          <mat-option *ngFor="let unitType of getSubjectTypes(node)" [value]="unitType.id">
-            {{unitType.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <button mat-button (click)="saveClassification(node, itemValue.value, type.value)">Save</button>
-    </mat-tree-node>
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    {{node.name}}
+  </mat-tree-node>
 
-    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-      <button mat-icon-button 
-              (click)="loadChildren(node)"
-              matTreeNodeToggle
-              [attr.aria-label]="'toggle ' + node.filename">
-        <mat-icon class="mat-icon-rtl-mirror">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-        </mat-icon>
-      </button>
-      <div *ngIf="node.isEditable; else elseBlock"> <input value="{{node.name}}" #name>
-        <button mat-icon-button (click)="updateItem(node, name.value)">Save</button>
-      </div>
-      <ng-template #elseBlock>{{node.name}}</ng-template>  
-      <button mat-icon-button *ngIf="!node.isClassification" (click)="addTemplate(node)"><mat-icon>add</mat-icon></button>
-      <button mat-icon-button *ngIf="editAvailable(node)" (click)="changeEdit(node)"><mat-icon>edit</mat-icon></button>
-      <button mat-icon-button *ngIf="!node.isClassification" (click)="delete(node)"><mat-icon>delete</mat-icon></button>
-    </mat-tree-node>
-  </mat-tree>
-  
+  <mat-tree-node *matTreeNodeDef="let node; when: isUnitTemplate" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <mat-form-field>
+      <mat-label>New unit...</mat-label>
+      <input matInput #itemValue placeholder="....">
+    </mat-form-field>
+    <button mat-button (click)="saveUnit(node, itemValue.value)">Save</button>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: isClassificationTemplate" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <mat-form-field>
+      <mat-label>Custom name...</mat-label>
+      <input matInput #itemValue placeholder="....">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>UnitType</mat-label>
+      <mat-select #type>
+        <mat-option *ngFor="let unitType of getSubjectTypes(node)" [value]="unitType.id">
+          {{unitType.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button (click)="saveClassification(node, itemValue.value, type.value)">Save</button>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button mat-icon-button (click)="loadChildren(node)" matTreeNodeToggle
+      [attr.aria-label]="'toggle ' + node.filename">
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+    <div *ngIf="node.isEditable; else elseBlock"> <input value="{{node.name}}" #name>
+      <button mat-icon-button (click)="updateItem(node, name.value)">Save</button>
+    </div>
+    <ng-template #elseBlock>{{node.name}}</ng-template>
+    <button mat-icon-button *ngIf="!node.isClassification" (click)="addTemplate(node)">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="editAvailable(node)" (click)="changeEdit(node)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="!node.isClassification" (click)="delete(node)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-tree-node>
+</mat-tree>

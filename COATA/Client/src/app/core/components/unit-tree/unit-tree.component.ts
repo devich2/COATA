@@ -1,16 +1,10 @@
 
-import {SelectionModel, CollectionViewer, SelectionChange} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { DynamicDataSource } from './data-source';
 import { FlatNode, ItemNode } from './node.model';
 import { UnitType } from '../../models/unit-type.model';
-import { Observable, merge } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { UnitApiService } from '../../api/unit/unit-api.service';
-import { ClassificationApiService } from '../../api/unit/classification-api.service';
-import { ClassificationCreateModel } from '../../models/classification.model';
 
 @Component({
   selector: 'app-unit-tree',
